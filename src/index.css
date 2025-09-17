@@ -38,20 +38,21 @@ All colors MUST be HSL.
 
     --radius: 0.5rem;
 
+    /* WordMatch Game Design System */
+    --game-primary: 0 69% 70%;    /* #FF6B6B */
+    --game-mint: 177 49% 55%;     /* #4ECDC4 */
+    --game-lemon: 44 100% 70%;    /* #FFD166 */
+    --game-bg: 210 17% 98%;       /* #F8F9FA */
+    --game-text: 0 0% 20%;        /* #333333 */
+    --game-muted: 0 0% 60%;       /* #999999 */
+
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
