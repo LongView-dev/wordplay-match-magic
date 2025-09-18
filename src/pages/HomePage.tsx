@@ -99,7 +99,7 @@ const HomePage: React.FC = () => {
         <PmCard 
           hoverable 
           className="p-4 text-center"
-          onClick={() => navigate('/shop')}
+          onClick={() => navigate('/items')}
         >
           <div className="space-y-3">
             <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto">
