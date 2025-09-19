@@ -1,5 +1,5 @@
 export type WordLevel = 'primary' | 'CET-4' | 'CET-6' | 'business';
-export type Scene = 'exam' | 'business' | 'travel' | 'daily';
+export type Scene = 'cet' | 'toefl' | 'ielts' | 'business' | 'travel' | 'daily';
 
 export interface Word {
   id: string;

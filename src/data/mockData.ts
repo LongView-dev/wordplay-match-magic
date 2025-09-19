@@ -15,7 +15,7 @@ export const MOCK_WORDS: Word[] = [
     en: 'sprint',
     zh: '冲刺',
     level: 'CET-4',
-    scene: 'exam',
+    scene: 'cet',
     phonetic: '/sprɪnt/',
     example: 'He sprinted to the finish line.'
   },
@@ -51,7 +51,7 @@ export const MOCK_WORDS: Word[] = [
     en: 'enthusiastic',
     zh: '热情的',
     level: 'CET-6',
-    scene: 'exam',
+    scene: 'cet',
     phonetic: '/ɪnˌθuːziˈæstɪk/',
     example: 'She was enthusiastic about the new project.'
   }
