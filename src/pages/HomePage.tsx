@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PmCard from '@/components/atoms/PmCard';
 import PmButton from '@/components/atoms/PmButton';
 import PmProgress from '@/components/atoms/PmProgress';
 import LevelRibbon from '@/components/game/LevelRibbon';
+import ProgressModal from '@/components/progress/ProgressModal';
 import { MOCK_USER, MOCK_THEMES } from '@/data/mockData';
 import { 
   Play, 
@@ -17,6 +18,7 @@ import {
 
 const HomePage: React.FC = () => {
   const navigate = useNavigate();
+  const [showProgressModal, setShowProgressModal] = useState(false);
 
   const todayProgress = 65; // Mock today's progress
   const bestScore = 1520; // Mock best score
@@ -114,10 +116,15 @@ const HomePage: React.FC = () => {
       </div>
 
       {/* Today's Progress */}
-      <PmCard className="mb-6">
+      <PmCard 
+        hoverable 
+        className="mb-6 cursor-pointer"
+        onClick={() => setShowProgressModal(true)}
+      >
         <h3 className="font-semibold text-game-text mb-3 flex items-center gap-2">
           <Clock className="h-5 w-5 text-game-mint" />
           今日进度
+          <span className="text-xs text-game-muted ml-auto">点击查看详情</span>
         </h3>
         <div className="space-y-3">
           <PmProgress value={todayProgress} color="mint" showLabel />
@@ -179,6 +186,12 @@ const HomePage: React.FC = () => {
           开始今日挑战
         </PmButton>
       </div>
+
+      {/* Progress Modal */}
+      <ProgressModal 
+        open={showProgressModal} 
+        onOpenChange={setShowProgressModal} 
+      />
     </div>
   );
 };
