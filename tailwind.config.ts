@@ -97,6 +97,12 @@ export default {
         "miss-shake": "miss-shake 0.5s ease-in-out",
         "pulse-glow": "pulse-glow 2s ease-in-out infinite",
       },
+      spacing: {
+        'safe-top': 'env(safe-area-inset-top)',
+        'safe-bottom': 'env(safe-area-inset-bottom)',
+        'safe-left': 'env(safe-area-inset-left)',
+        'safe-right': 'env(safe-area-inset-right)',
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],

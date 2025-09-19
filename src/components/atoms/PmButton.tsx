@@ -32,7 +32,7 @@ const PmButton = React.forwardRef<HTMLButtonElement, PmButtonProps>(
         ref={ref}
         className={cn(
           'rounded-game-md font-medium text-base px-6 py-3 transition-all duration-200',
-          'disabled:opacity-50 disabled:cursor-not-allowed',
+          'disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation min-h-[44px]',
           fullWidth && 'w-full',
           getVariantClasses(),
           className

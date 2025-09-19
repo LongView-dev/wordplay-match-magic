@@ -137,7 +137,7 @@ const ItemsPage: React.FC = () => {
         </div>
       </div>
 
-      <div className="px-4 py-4 space-y-4">
+      <div className="px-4 py-4 space-y-4 pb-safe-bottom">
         {/* Currency Display */}
         <CurrencyDisplay
           coins={userInventory.coins}
@@ -149,24 +149,24 @@ const ItemsPage: React.FC = () => {
         <div className="flex bg-white rounded-game-xl p-1 shadow-game-card">
           <button
             onClick={() => setActiveTab('shop')}
-            className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-game-md font-medium transition-all ${
+            className={`flex-1 flex items-center justify-center gap-2 py-4 rounded-game-md font-medium transition-all min-h-[44px] ${
               activeTab === 'shop'
                 ? 'bg-game-primary text-white shadow-md'
-                : 'text-game-text hover:bg-game-bg'
+                : 'text-game-text active:bg-game-bg'
             }`}
           >
-            <ShoppingBag className="w-4 h-4" />
+            <ShoppingBag className="w-5 h-5" />
             商店
           </button>
           <button
             onClick={() => setActiveTab('inventory')}
-            className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-game-md font-medium transition-all ${
+            className={`flex-1 flex items-center justify-center gap-2 py-4 rounded-game-md font-medium transition-all min-h-[44px] ${
               activeTab === 'inventory'
                 ? 'bg-game-primary text-white shadow-md'
-                : 'text-game-text hover:bg-game-bg'
+                : 'text-game-text active:bg-game-bg'
             }`}
           >
-            <Package className="w-4 h-4" />
+            <Package className="w-5 h-5" />
             背包 ({userInventory.items.length})
           </button>
         </div>
@@ -180,7 +180,7 @@ const ItemsPage: React.FC = () => {
         )}
 
         {/* Items Grid */}
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-4 pb-safe-bottom">
           {activeTab === 'shop' ? (
             filteredItems.length > 0 ? (
               filteredItems.map(item => (

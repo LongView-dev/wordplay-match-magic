@@ -28,7 +28,7 @@ const CurrencyDisplay = React.forwardRef<HTMLDivElement, CurrencyDisplayProps>(
           {onBuyCurrency && (
             <button
               onClick={() => onBuyCurrency('coins')}
-              className="w-6 h-6 bg-game-primary rounded-full flex items-center justify-center hover:bg-game-primary/90 transition-colors"
+              className="w-8 h-8 bg-game-primary rounded-full flex items-center justify-center active:bg-game-primary/90 transition-colors touch-manipulation"
             >
               <Plus className="w-4 h-4 text-white" />
             </button>
@@ -49,7 +49,7 @@ const CurrencyDisplay = React.forwardRef<HTMLDivElement, CurrencyDisplayProps>(
           {onBuyCurrency && (
             <button
               onClick={() => onBuyCurrency('gems')}
-              className="w-6 h-6 bg-game-primary rounded-full flex items-center justify-center hover:bg-game-primary/90 transition-colors"
+              className="w-8 h-8 bg-game-primary rounded-full flex items-center justify-center active:bg-game-primary/90 transition-colors touch-manipulation"
             >
               <Plus className="w-4 h-4 text-white" />
             </button>

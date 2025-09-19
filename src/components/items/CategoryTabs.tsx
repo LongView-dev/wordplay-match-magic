@@ -22,20 +22,20 @@ const CATEGORIES = [
 const CategoryTabs = React.forwardRef<HTMLDivElement, CategoryTabsProps>(
   ({ activeCategory, onCategoryChange, className }, ref) => {
     return (
-      <div ref={ref} className={cn('flex gap-2 overflow-x-auto scrollbar-hide pb-2', className)}>
+      <div ref={ref} className={cn('flex gap-3 overflow-x-auto scrollbar-hide pb-2', className)}>
         {CATEGORIES.map(category => (
           <button
             key={category.key}
             onClick={() => onCategoryChange(category.key)}
             className={cn(
-              'flex items-center gap-2 px-4 py-2 rounded-game-md font-medium text-sm whitespace-nowrap transition-all duration-200',
-              'border border-transparent',
+              'flex items-center gap-2 px-4 py-3 rounded-game-md font-medium text-sm whitespace-nowrap transition-all duration-200',
+              'border border-transparent min-h-[44px] touch-manipulation',
               activeCategory === category.key
                 ? 'bg-game-primary text-white shadow-game-card'
-                : 'bg-white text-game-text hover:bg-game-bg border-gray-200'
+                : 'bg-white text-game-text active:bg-game-bg border-gray-200'
             )}
           >
-            <span className="text-base">{category.icon}</span>
+            <span className="text-lg">{category.icon}</span>
             <span>{category.label}</span>
           </button>
         ))}
