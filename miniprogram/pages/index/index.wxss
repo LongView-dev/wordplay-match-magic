@@ -211,3 +211,63 @@
     opacity: 1;
   }
 }
+
+/* 头像占位符样式 */
+.user-avatar-placeholder {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 4rpx solid #52c41a;
+}
+
+.avatar-text {
+  color: #fff;
+  font-size: 48rpx;
+  font-weight: bold;
+}
+
+/* 图标文字样式 */
+.icon-text {
+  font-size: 36rpx;
+  color: #fff;
+}
+
+.icon-small {
+  font-size: 32rpx;
+}
+
+/* 主题图标占位符 */
+.theme-icon-placeholder {
+  width: 60rpx;
+  height: 60rpx;
+  margin-right: 20rpx;
+  border-radius: 8rpx;
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+}
+
+/* 详情弹窗样式 */
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 16rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.detail-label {
+  color: #666;
+  font-size: 28rpx;
+}
+
+.detail-value {
+  color: #1a1a1a;
+  font-size: 28rpx;
+  font-weight: bold;
+}

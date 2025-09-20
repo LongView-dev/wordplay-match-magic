@@ -1,14 +1,5 @@
 <!--pages/game/game.wxml-->
 <view class="container">
-  <!-- 游戏头部 -->
-  <view class="game-header">
-    <view class="back-btn" bindtap="goBack">
-      <image src="/images/icon-back.png" class="icon-small"></image>
-    </view>
-    <text class="page-title">每日挑战</text>
-    <view class="spacer"></view>
-  </view>
-
   <!-- 准备阶段 -->
   <view wx:if="{{gameState === 'ready'}}" class="game-ready">
     <view class="card text-center p-30">
@@ -22,7 +13,6 @@
     </view>
     
     <button class="btn btn-primary btn-large mt-30" bindtap="startGame">
-      <image src="/images/icon-play.png" class="btn-icon"></image>
       开始挑战
     </button>
   </view>

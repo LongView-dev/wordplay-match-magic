@@ -4,7 +4,9 @@
   <view class="card mb-20">
     <view class="flex flex-row">
       <view class="user-avatar-wrapper">
-        <image src="{{userInfo.avatar}}" class="user-avatar" mode="aspectFill"></image>
+        <view class="user-avatar-placeholder">
+          <text class="avatar-text">{{userInfo.nickname[0]}}</text>
+        </view>
         <view class="level-badge">Lv.{{userInfo.level}}</view>
       </view>
       <view class="flex-1 ml-20">
@@ -21,7 +23,7 @@
   <view class="grid-container mb-20">
     <view class="grid-item card" bindtap="navigateToGame">
       <view class="icon-wrapper bg-primary">
-        <image src="/images/icon-play.png" class="icon"></image>
+        <text class="icon-text">▶</text>
       </view>
       <text class="grid-title">每日挑战</text>
       <text class="grid-desc">90秒匹配挑战</text>
@@ -29,7 +31,7 @@
 
     <view class="grid-item card" bindtap="navigateToThemes">
       <view class="icon-wrapper bg-success">
-        <image src="/images/icon-target.png" class="icon"></image>
+        <text class="icon-text">🎯</text>
       </view>
       <text class="grid-title">主题闯关</text>
       <text class="grid-desc">分类词汇训练</text>
@@ -37,7 +39,7 @@
 
     <view class="grid-item card" bindtap="navigateToPk">
       <view class="icon-wrapper bg-warning">
-        <image src="/images/icon-users.png" class="icon"></image>
+        <text class="icon-text">👥</text>
       </view>
       <text class="grid-title">好友PK</text>
       <text class="grid-desc">实时对战</text>
@@ -45,7 +47,7 @@
 
     <view class="grid-item card" bindtap="navigateToItems">
       <view class="icon-wrapper" style="background-color: #e6f4ff;">
-        <image src="/images/icon-shop.png" class="icon"></image>
+        <text class="icon-text">🛒</text>
       </view>
       <text class="grid-title">道具中心</text>
       <text class="grid-desc">购买道具</text>
@@ -56,7 +58,7 @@
   <view class="card mb-20" bindtap="showProgressModal">
     <view class="flex flex-row flex-between mb-20">
       <view class="flex flex-row">
-        <image src="/images/icon-clock.png" class="icon-small mr-10"></image>
+        <text class="icon-small mr-10">⏰</text>
         <text class="subtitle">今日进度</text>
       </view>
       <text class="text-sm text-gray">点击查看详情</text>
@@ -75,13 +77,13 @@
   <!-- 统计数据 -->
   <view class="grid-container">
     <view class="stat-card card">
-      <image src="/images/icon-trending.png" class="icon-small"></image>
+      <text class="icon-small">📈</text>
       <text class="stat-value">{{bestScore}}</text>
       <text class="stat-label">历史最佳</text>
     </view>
 
     <view class="stat-card card">
-      <image src="/images/icon-book.png" class="icon-small"></image>
+      <text class="icon-small">📚</text>
       <text class="stat-value">{{learnedToday}}</text>
       <text class="stat-label">今日学习</text>
     </view>
@@ -93,7 +95,9 @@
     <view class="theme-list">
       <block wx:for="{{recentThemes}}" wx:key="id">
         <view class="theme-item" data-id="{{item.id}}" bindtap="selectTheme">
-          <image src="{{item.icon}}" class="theme-icon"></image>
+          <view class="theme-icon-placeholder">
+            <text>{{item.emoji || '📖'}}</text>
+          </view>
           <view class="flex-1">
             <text class="theme-name">{{item.name}}</text>
             <view class="theme-progress">
@@ -114,7 +118,18 @@
   <view class="modal-content" catchtap="stopPropagation">
     <text class="modal-title">今日学习详情</text>
     <view class="modal-body">
-      <!-- 添加详细内容 -->
+      <view class="detail-item">
+        <text class="detail-label">学习时长</text>
+        <text class="detail-value">45分钟</text>
+      </view>
+      <view class="detail-item">
+        <text class="detail-label">正确率</text>
+        <text class="detail-value">85%</text>
+      </view>
+      <view class="detail-item">
+        <text class="detail-label">连续学习</text>
+        <text class="detail-value">7天</text>
+      </view>
     </view>
     <button class="btn btn-primary" bindtap="hideProgressModal">关闭</button>
   </view>

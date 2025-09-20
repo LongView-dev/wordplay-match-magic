@@ -4,7 +4,7 @@ const app = getApp()
 Page({
   data: {
     userInfo: {
-      avatar: '/images/default-avatar.png',
+      avatar: '',
       nickname: '玩家',
       level: 1,
       masteredWords: 0,
@@ -19,19 +19,19 @@ Page({
       {
         id: 1,
         name: '基础词汇',
-        icon: '/images/theme-basic.png',
+        emoji: '📝',
         progress: 80
       },
       {
         id: 2,
         name: '生活用语',
-        icon: '/images/theme-life.png',
+        emoji: '🏠',
         progress: 45
       },
       {
         id: 3,
         name: '科技词汇',
-        icon: '/images/theme-tech.png',
+        emoji: '💻',
         progress: 30
       }
     ]
@@ -52,7 +52,7 @@ Page({
     
     this.setData({
       userInfo: {
-        avatar: userInfo.avatarUrl || '/images/default-avatar.png',
+        avatar: userInfo.avatarUrl || '',
         nickname: userInfo.nickName || '玩家',
         level: gameData.level || 1,
         masteredWords: gameData.masteredWords || 0,
@@ -63,12 +63,16 @@ Page({
 
   refreshData() {
     // 刷新今日进度等数据
-    const todayData = wx.getStorageSync('todayData') || {}
-    this.setData({
-      todayProgress: todayData.progress || 0,
-      completedWords: todayData.completed || 0,
-      learnedToday: todayData.learned || 0
-    })
+    try {
+      const todayData = wx.getStorageSync('todayData') || {}
+      this.setData({
+        todayProgress: todayData.progress || 0,
+        completedWords: todayData.completed || 0,
+        learnedToday: todayData.learned || 0
+      })
+    } catch (e) {
+      console.error('加载今日数据失败', e)
+    }
   },
 
   navigateToGame() {
@@ -123,8 +127,7 @@ Page({
   onShareAppMessage() {
     return {
       title: '一起来玩文字匹配魔法吧！',
-      path: '/pages/index/index',
-      imageUrl: '/images/share-img.png'
+      path: '/pages/index/index'
     }
   },
 

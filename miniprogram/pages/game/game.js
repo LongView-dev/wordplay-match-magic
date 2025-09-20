@@ -17,7 +17,7 @@ const MOCK_WORDS = [
 
 Page({
   data: {
-    gameState: 'ready', // ready, playing, finished
+    gameState: 'ready', // ready, playing, paused, finished
     currentWordIndex: 0,
     currentWord: {},
     candidates: [],
@@ -37,7 +37,8 @@ Page({
       newMastered: 0,
       score: 0,
       rewardText: ''
-    }
+    },
+    pausedTimeLeft: 0 // 保存暂停时的剩余时间
   },
 
   // 游戏统计
@@ -55,11 +56,23 @@ Page({
     this.initGame()
   },
 
-  onUnload() {
-    // 清理定时器
-    if (this.timer) {
-      clearInterval(this.timer)
+  onShow() {
+    // 页面显示时，如果游戏在进行中且被暂停，则恢复游戏
+    if (this.data.gameState === 'paused') {
+      this.resumeGame()
     }
+  },
+
+  onHide() {
+    // 页面隐藏时暂停游戏
+    if (this.data.gameState === 'playing') {
+      this.pauseGame()
+    }
+  },
+
+  onUnload() {
+    // 页面卸载时完全停止游戏
+    this.stopGame()
   },
 
   initGame() {
@@ -69,7 +82,8 @@ Page({
       score: 0,
       combo: 0,
       timeLeft: 90,
-      progress: 0
+      progress: 0,
+      pausedTimeLeft: 0
     })
     this.stats = {
       correctAnswers: 0,
@@ -86,13 +100,67 @@ Page({
     this.startTimer()
   },
 
+  pauseGame() {
+    if (this.data.gameState === 'playing') {
+      // 清除定时器
+      if (this.timer) {
+        clearInterval(this.timer)
+        this.timer = null
+      }
+      
+      // 保存当前状态
+      this.setData({
+        gameState: 'paused',
+        pausedTimeLeft: this.data.timeLeft
+      })
+      
+      console.log('游戏已暂停')
+    }
+  },
+
+  resumeGame() {
+    if (this.data.gameState === 'paused') {
+      this.setData({
+        gameState: 'playing',
+        timeLeft: this.data.pausedTimeLeft || this.data.timeLeft
+      })
+      
+      // 重新启动定时器
+      this.startTimer()
+      
+      console.log('游戏已恢复')
+    }
+  },
+
+  stopGame() {
+    // 清理定时器
+    if (this.timer) {
+      clearInterval(this.timer)
+      this.timer = null
+    }
+    
+    // 如果游戏在进行中，保存数据
+    if (this.data.gameState === 'playing' || this.data.gameState === 'paused') {
+      this.saveGameData()
+    }
+    
+    console.log('游戏已停止')
+  },
+
   startTimer() {
+    // 确保没有重复的定时器
+    if (this.timer) {
+      clearInterval(this.timer)
+    }
+    
     this.timer = setInterval(() => {
-      const timeLeft = this.data.timeLeft - 1
-      if (timeLeft <= 0) {
-        this.endGame()
-      } else {
-        this.setData({ timeLeft })
+      if (this.data.gameState === 'playing') {
+        const timeLeft = this.data.timeLeft - 1
+        if (timeLeft <= 0) {
+          this.endGame()
+        } else {
+          this.setData({ timeLeft })
+        }
       }
     }, 1000)
   },
@@ -216,6 +284,7 @@ Page({
   },
 
   endGame() {
+    // 停止定时器
     if (this.timer) {
       clearInterval(this.timer)
       this.timer = null
@@ -244,18 +313,29 @@ Page({
   },
 
   saveGameData() {
-    const gameData = app.globalData.gameData
-    gameData.score += this.data.score
-    gameData.experience += this.stats.correctAnswers * 10
-    
-    // 更新今日数据
-    const todayData = wx.getStorageSync('todayData') || {}
-    todayData.completed = (todayData.completed || 0) + this.stats.correctAnswers
-    todayData.learned = (todayData.learned || 0) + this.stats.correctAnswers
-    todayData.progress = Math.min(100, Math.round((todayData.completed / 100) * 100))
-    
-    wx.setStorageSync('todayData', todayData)
-    app.saveUserData()
+    try {
+      const gameData = app.globalData.gameData
+      gameData.score += this.data.score
+      gameData.experience += this.stats.correctAnswers * 10
+      
+      // 更新今日数据
+      const todayData = wx.getStorageSync('todayData') || {}
+      todayData.completed = (todayData.completed || 0) + this.stats.correctAnswers
+      todayData.learned = (todayData.learned || 0) + this.stats.correctAnswers
+      todayData.progress = Math.min(100, Math.round((todayData.completed / 100) * 100))
+      
+      wx.setStorageSync('todayData', todayData)
+      app.saveUserData()
+      
+      console.log('游戏数据已保存')
+    } catch (e) {
+      console.error('保存游戏数据失败', e)
+      wx.showToast({
+        title: '数据保存失败',
+        icon: 'none',
+        duration: 2000
+      })
+    }
   },
 
   handleAgain() {
@@ -263,12 +343,13 @@ Page({
   },
 
   handleHome() {
-    wx.switchTab({
-      url: '/pages/index/index'
+    wx.navigateBack({
+      fail: () => {
+        // 如果返回失败，则跳转到首页
+        wx.switchTab({
+          url: '/pages/index/index'
+        })
+      }
     })
-  },
-
-  goBack() {
-    wx.navigateBack()
   }
 })
