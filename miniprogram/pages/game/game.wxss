@@ -1,0 +1,276 @@
+/* pages/game/game.wxss */
+
+.game-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.back-btn {
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.page-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #1a1a1a;
+}
+
+.spacer {
+  width: 60rpx;
+}
+
+/* 游戏准备阶段 */
+.game-ready {
+  margin-top: 60rpx;
+}
+
+.game-icon {
+  font-size: 120rpx;
+  margin-bottom: 30rpx;
+}
+
+.btn-large {
+  width: 100%;
+  height: 96rpx;
+  font-size: 32rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16rpx;
+}
+
+.btn-icon {
+  width: 36rpx;
+  height: 36rpx;
+}
+
+/* 游戏HUD */
+.game-hud {
+  padding: 24rpx;
+}
+
+.hud-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20rpx;
+}
+
+.hud-row:last-child {
+  margin-bottom: 0;
+}
+
+.hud-item {
+  flex: 1;
+  text-align: center;
+}
+
+.hud-label {
+  font-size: 24rpx;
+  color: #999;
+  margin-bottom: 8rpx;
+  display: block;
+}
+
+.hud-value {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #1a1a1a;
+}
+
+/* 匹配板 */
+.match-board {
+  padding: 30rpx;
+}
+
+.word-display {
+  text-align: center;
+  margin-bottom: 40rpx;
+  padding: 30rpx;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 16rpx;
+}
+
+.word-text {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #fff;
+  display: block;
+  margin-bottom: 12rpx;
+}
+
+.word-phonetic {
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* 候选答案网格 */
+.candidates-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20rpx;
+}
+
+.candidate-card {
+  padding: 30rpx;
+  background-color: #f8f8f8;
+  border-radius: 12rpx;
+  text-align: center;
+  transition: all 0.2s;
+  border: 3rpx solid transparent;
+}
+
+.candidate-card:active {
+  transform: scale(0.95);
+}
+
+.candidate-card.selected {
+  background-color: #e6f7ff;
+  border-color: #1890ff;
+}
+
+.candidate-text {
+  font-size: 32rpx;
+  color: #1a1a1a;
+}
+
+/* 游戏结果 */
+.game-finished {
+  margin-top: 60rpx;
+}
+
+.result-modal {
+  padding: 40rpx;
+}
+
+.result-header {
+  text-align: center;
+  margin-bottom: 40rpx;
+}
+
+.result-icon {
+  font-size: 80rpx;
+  margin-bottom: 20rpx;
+}
+
+.result-title {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #1a1a1a;
+}
+
+.result-stats {
+  margin-bottom: 40rpx;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 16rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.stat-row.highlight {
+  padding: 20rpx 0;
+  border-bottom: none;
+  margin-top: 10rpx;
+  background: linear-gradient(90deg, #f0f9ff 0%, #e6f7ff 100%);
+  border-radius: 8rpx;
+  padding-left: 20rpx;
+  padding-right: 20rpx;
+}
+
+.stat-label {
+  font-size: 28rpx;
+  color: #666;
+}
+
+.stat-value {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #1a1a1a;
+}
+
+/* 奖励部分 */
+.reward-section {
+  text-align: center;
+  padding: 30rpx;
+  background-color: #f6ffed;
+  border-radius: 12rpx;
+  margin-bottom: 40rpx;
+}
+
+.reward-label {
+  font-size: 24rpx;
+  color: #52c41a;
+  display: block;
+  margin-bottom: 12rpx;
+}
+
+.reward-text {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #52c41a;
+}
+
+/* 结果操作按钮 */
+.result-actions {
+  display: flex;
+  gap: 20rpx;
+}
+
+.result-actions .btn {
+  flex: 1;
+  height: 88rpx;
+  font-size: 30rpx;
+}
+
+/* Toast提示 */
+.toast {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20rpx 40rpx;
+  border-radius: 12rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #fff;
+  z-index: 9999;
+  animation: fadeInOut 2s ease;
+}
+
+.toast.success {
+  background-color: rgba(82, 196, 26, 0.9);
+}
+
+.toast.error {
+  background-color: rgba(245, 34, 45, 0.9);
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -40%) scale(0.8);
+  }
+  20% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  80% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -60%) scale(0.8);
+  }
+}

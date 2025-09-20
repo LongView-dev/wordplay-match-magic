@@ -1,0 +1,6 @@
+{
+  "usingComponents": {},
+  "navigationBarTitleText": "文字匹配魔法",
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark"
+}

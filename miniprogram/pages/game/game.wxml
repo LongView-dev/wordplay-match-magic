@@ -1,0 +1,128 @@
+<!--pages/game/game.wxml-->
+<view class="container">
+  <!-- 游戏头部 -->
+  <view class="game-header">
+    <view class="back-btn" bindtap="goBack">
+      <image src="/images/icon-back.png" class="icon-small"></image>
+    </view>
+    <text class="page-title">每日挑战</text>
+    <view class="spacer"></view>
+  </view>
+
+  <!-- 准备阶段 -->
+  <view wx:if="{{gameState === 'ready'}}" class="game-ready">
+    <view class="card text-center p-30">
+      <view class="game-icon">🎯</view>
+      <text class="title mb-20">准备开始挑战</text>
+      <view class="text-gray">
+        <view>今日目标：匹配 20 个单词</view>
+        <view>初始时间：90 秒</view>
+        <view>正确匹配可获得额外时间</view>
+      </view>
+    </view>
+    
+    <button class="btn btn-primary btn-large mt-30" bindtap="startGame">
+      <image src="/images/icon-play.png" class="btn-icon"></image>
+      开始挑战
+    </button>
+  </view>
+
+  <!-- 游戏进行中 -->
+  <view wx:if="{{gameState === 'playing'}}" class="game-playing">
+    <!-- 游戏HUD -->
+    <view class="game-hud card mb-20">
+      <view class="hud-row">
+        <view class="hud-item">
+          <text class="hud-label">进度</text>
+          <view class="progress-bar">
+            <view class="progress-bar-fill" style="width: {{progress}}%"></view>
+          </view>
+          <text class="hud-value">{{progress}}%</text>
+        </view>
+      </view>
+      
+      <view class="hud-row">
+        <view class="hud-item">
+          <text class="hud-label">得分</text>
+          <text class="hud-value text-primary">{{score}}</text>
+        </view>
+        <view class="hud-item">
+          <text class="hud-label">连击</text>
+          <text class="hud-value text-warning">×{{combo}}</text>
+        </view>
+        <view class="hud-item">
+          <text class="hud-label">时间</text>
+          <text class="hud-value {{timeLeft < 30 ? 'text-danger' : ''}}">{{timeLeft}}s</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 匹配板 -->
+    <view class="match-board card">
+      <!-- 目标单词 -->
+      <view class="word-display">
+        <text class="word-text">{{currentWord.english}}</text>
+        <text class="word-phonetic">{{currentWord.phonetic}}</text>
+      </view>
+
+      <!-- 候选答案 -->
+      <view class="candidates-grid">
+        <block wx:for="{{candidates}}" wx:key="id">
+          <view class="candidate-card {{item.selected ? 'selected' : ''}}" 
+                data-id="{{item.id}}" 
+                bindtap="selectCandidate">
+            <text class="candidate-text">{{item.chinese}}</text>
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+
+  <!-- 游戏结束 -->
+  <view wx:if="{{gameState === 'finished'}}" class="game-finished">
+    <view class="result-modal card">
+      <view class="result-header">
+        <view class="result-icon">🎉</view>
+        <text class="result-title">挑战完成！</text>
+      </view>
+      
+      <view class="result-stats">
+        <view class="stat-row">
+          <text class="stat-label">准确率</text>
+          <text class="stat-value">{{result.accuracy}}%</text>
+        </view>
+        <view class="stat-row">
+          <text class="stat-label">用时</text>
+          <text class="stat-value">{{result.timeUsed}}秒</text>
+        </view>
+        <view class="stat-row">
+          <text class="stat-label">最大连击</text>
+          <text class="stat-value">×{{result.comboMax}}</text>
+        </view>
+        <view class="stat-row">
+          <text class="stat-label">新掌握</text>
+          <text class="stat-value">{{result.newMastered}}个</text>
+        </view>
+        <view class="stat-row highlight">
+          <text class="stat-label">总得分</text>
+          <text class="stat-value text-primary">{{result.score}}</text>
+        </view>
+      </view>
+
+      <view class="reward-section">
+        <text class="reward-label">获得奖励</text>
+        <text class="reward-text">{{result.rewardText}}</text>
+      </view>
+
+      <view class="result-actions">
+        <button class="btn btn-secondary" bindtap="handleAgain">再来一次</button>
+        <button class="btn btn-primary" bindtap="handleHome">返回首页</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- Toast提示 -->
+  <view wx:if="{{toast.show}}" class="toast {{toast.type}}">
+    <text>{{toast.message}}</text>
+  </view>
+</view>

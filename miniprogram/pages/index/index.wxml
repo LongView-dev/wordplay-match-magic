@@ -1,0 +1,121 @@
+<!--pages/index/index.wxml-->
+<view class="container">
+  <!-- 用户信息卡片 -->
+  <view class="card mb-20">
+    <view class="flex flex-row">
+      <view class="user-avatar-wrapper">
+        <image src="{{userInfo.avatar}}" class="user-avatar" mode="aspectFill"></image>
+        <view class="level-badge">Lv.{{userInfo.level}}</view>
+      </view>
+      <view class="flex-1 ml-20">
+        <text class="title">{{userInfo.nickname}}</text>
+        <view class="text-sm text-gray mt-10">
+          <view>已掌握 {{userInfo.masteredWords}} 个单词</view>
+          <view>总积分 {{userInfo.totalScore}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 功能按钮网格 -->
+  <view class="grid-container mb-20">
+    <view class="grid-item card" bindtap="navigateToGame">
+      <view class="icon-wrapper bg-primary">
+        <image src="/images/icon-play.png" class="icon"></image>
+      </view>
+      <text class="grid-title">每日挑战</text>
+      <text class="grid-desc">90秒匹配挑战</text>
+    </view>
+
+    <view class="grid-item card" bindtap="navigateToThemes">
+      <view class="icon-wrapper bg-success">
+        <image src="/images/icon-target.png" class="icon"></image>
+      </view>
+      <text class="grid-title">主题闯关</text>
+      <text class="grid-desc">分类词汇训练</text>
+    </view>
+
+    <view class="grid-item card" bindtap="navigateToPk">
+      <view class="icon-wrapper bg-warning">
+        <image src="/images/icon-users.png" class="icon"></image>
+      </view>
+      <text class="grid-title">好友PK</text>
+      <text class="grid-desc">实时对战</text>
+    </view>
+
+    <view class="grid-item card" bindtap="navigateToItems">
+      <view class="icon-wrapper" style="background-color: #e6f4ff;">
+        <image src="/images/icon-shop.png" class="icon"></image>
+      </view>
+      <text class="grid-title">道具中心</text>
+      <text class="grid-desc">购买道具</text>
+    </view>
+  </view>
+
+  <!-- 今日进度 -->
+  <view class="card mb-20" bindtap="showProgressModal">
+    <view class="flex flex-row flex-between mb-20">
+      <view class="flex flex-row">
+        <image src="/images/icon-clock.png" class="icon-small mr-10"></image>
+        <text class="subtitle">今日进度</text>
+      </view>
+      <text class="text-sm text-gray">点击查看详情</text>
+    </view>
+    
+    <view class="progress-bar">
+      <view class="progress-bar-fill" style="width: {{todayProgress}}%"></view>
+    </view>
+    
+    <view class="flex flex-between mt-10">
+      <text class="text-sm text-gray">今日目标: 100 个单词</text>
+      <text class="text-sm text-gray">{{completedWords}} 个已完成</text>
+    </view>
+  </view>
+
+  <!-- 统计数据 -->
+  <view class="grid-container">
+    <view class="stat-card card">
+      <image src="/images/icon-trending.png" class="icon-small"></image>
+      <text class="stat-value">{{bestScore}}</text>
+      <text class="stat-label">历史最佳</text>
+    </view>
+
+    <view class="stat-card card">
+      <image src="/images/icon-book.png" class="icon-small"></image>
+      <text class="stat-value">{{learnedToday}}</text>
+      <text class="stat-label">今日学习</text>
+    </view>
+  </view>
+
+  <!-- 最近主题 -->
+  <view class="card mt-20">
+    <text class="subtitle mb-20">最近主题</text>
+    <view class="theme-list">
+      <block wx:for="{{recentThemes}}" wx:key="id">
+        <view class="theme-item" data-id="{{item.id}}" bindtap="selectTheme">
+          <image src="{{item.icon}}" class="theme-icon"></image>
+          <view class="flex-1">
+            <text class="theme-name">{{item.name}}</text>
+            <view class="theme-progress">
+              <view class="theme-progress-bar">
+                <view class="theme-progress-fill" style="width: {{item.progress}}%"></view>
+              </view>
+              <text class="text-sm text-gray">{{item.progress}}%</text>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>
+
+<!-- 进度详情弹窗 -->
+<view class="modal" wx:if="{{showModal}}" bindtap="hideProgressModal">
+  <view class="modal-content" catchtap="stopPropagation">
+    <text class="modal-title">今日学习详情</text>
+    <view class="modal-body">
+      <!-- 添加详细内容 -->
+    </view>
+    <button class="btn btn-primary" bindtap="hideProgressModal">关闭</button>
+  </view>
+</view>

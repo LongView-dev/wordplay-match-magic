@@ -1,0 +1,7 @@
+<!--pages/themes/themes.wxml-->
+<view class="container">
+  <view class="card">
+    <text class="title">主题选择页面</text>
+    <text class="subtitle">功能开发中...</text>
+  </view>
+</view>
